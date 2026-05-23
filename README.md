@@ -45,11 +45,14 @@ Role categories unlocked: **Android Engineer (Kotlin)**, Mobile.
 
 Android interviews probe Compose, MVVM/`StateFlow`, and a clean separation between testable logic and UI, plus money correctness. This repo shows all of it, with a property-based test that proves the split never drops a cent.
 
-## Build and run
+## How to run
+
+Prerequisites: JDK 17+ (the included Gradle wrapper handles the rest), Android SDK with platform-34 and build-tools 34. On CI, `android-actions/setup-android@v3` installs the SDK; locally, Android Studio's first launch installs them, or `sdkmanager "platforms;android-34" "build-tools;34.0.0"`.
 
 ```bash
 ./gradlew testDebugUnitTest   # 15 unit tests (logic + ViewModel + parsing)
 ./gradlew assembleDebug       # builds app/build/outputs/apk/debug/app-debug.apk
+adb install -r app/build/outputs/apk/debug/app-debug.apk   # install on a connected device
 ```
 
 Open in Android Studio and run on any device/emulator (API 24+). CI builds the debug APK and uploads it as an artifact on every push.
